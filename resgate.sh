@@ -1,14 +1,18 @@
 #!/bin/bash
+#################################
+# Autor: Rafael Vergani 	#
+# https://github.com/vergani 	#
+#################################
+
 
 openssl rsautl -in chave.enc -out chave.key -decrypt -inkey resgate.pem
 
-arquivos=$(ls)
+arquivos=$(ls *.cry)
 
 # coment
 for file in $arquivos
 do
-	if [ "$file" != "ranso.sh" ] && [ "$file" != "chave.enc" ] && [ "$file" != "resgate.pem" ] && [ "file" != "resgate.sh" ];
-	then
-		openssl enc -in $file -out $file".limpo" -d -aes256 -k chave.key
-	fi
+	novo_nome=$(basename $file .cry)
+	openssl enc -in $file -out $novo_nome  -d -aes256 -k chave.key
+	rm $file
 done
