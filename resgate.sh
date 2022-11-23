@@ -15,14 +15,18 @@ fi
 
 
 
-arquivos=$(ls *.cry 2>/dev/null)
+arquivos=$(find $(pwd) -print | egrep ".cry")
 
 echo "[+] Desfazendo criptografia."
 
 for file in $arquivos
 do
+	path=$(dirname $(readlink -f $file))
 	novo_nome=$(basename $file .cry)
-	openssl enc -in $file -out $novo_nome -d -md sha512 -k chave.key
+	fullname=$path/$novo_nome
+	openssl enc -in $file -out $fullname -d -aes-256-cbc -pbkdf2 -k chave.key
+	
+	echo "$fullname"
 	rm $file
 done
 
