@@ -14,8 +14,8 @@ else
 fi
 
 
-
-arquivos=$(find $(pwd) -print | egrep ".cry")
+volume_alvo=/home/vergani/arquivos
+arquivos=$(find $volume_alvo -print | egrep ".cry")
 
 echo "[+] Desfazendo criptografia."
 
