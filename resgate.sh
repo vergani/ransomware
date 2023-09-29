@@ -18,17 +18,20 @@ fi
 volume_alvo=/dados
 arquivos=$(find $volume_alvo -print | egrep ".cry")
 
+echo "----------------------------------------------"
 echo "[+] Desfazendo criptografia."
-
+echo "----------------------------------------------"
+i=0
 for file in $arquivos
 do
 	path=$(dirname $(readlink -f $file))
 	novo_nome=$(basename $file .cry)
 	fullname=$path/$novo_nome
 	openssl enc -in $file -out $fullname -d -aes-256-cbc -pbkdf2 -k chave.key
-	
 	echo "$fullname"
 	rm $file
+ 	((i=i+1))
 done
-
-echo "[+] Restauração concluída. Você está livre!"
+echo "----------------------------------------------"
+echo "$1 arquivos restaurados com sucesso
+echo "----------------------------------------------"
