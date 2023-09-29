@@ -2,8 +2,8 @@
 Lab para ransomware linux / unix
 
 
-### para criar arquivos para simular arquivos reais:
+Para criar arquivos para simular arquivos reais:
 
-for i in {001..999}; do head -c 1M </dev/zero >file$i; done
+for i in {000..999}; do base64 /dev/urandom | head -c 1000 > file$i.txt; done
 
-for n in {1..100}; do { < /dev/urandom tr -dc A-Za-z0-9 | head -c${1:-30};echo; } ;done > Business.txt
+
