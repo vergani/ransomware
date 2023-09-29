@@ -33,5 +33,5 @@ do
  	((i=i+1))
 done
 echo "----------------------------------------------"
-echo "$1 arquivos restaurados com sucesso
+echo "$i arquivos restaurados com sucesso"
 echo "----------------------------------------------"
